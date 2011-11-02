@@ -1,0 +1,125 @@
+﻿html
+{
+	background: url(../images/Background.png) repeat;
+	height: 100%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+a {
+	outline: 0;
+	text-decoration: none;
+}
+#siteWrapper {
+	width: 1000px;
+	margin: 0 auto;
+}
+header {
+	/* background: #993333;	*/
+	background: url(../images/Header.png) no-repeat;
+	height: 269px;
+	-moz-box-shadow: 0px 3px 3px #666;
+	-webkit-box-shadow: 0px 3px 3px #666;
+	box-shadow: 0px 3px 3px #666;
+
+}
+header h1
+{
+	background: url(../images/logo.png) no-repeat;
+	float: left;
+	height: 121px;
+	width: 487px;
+	display: block;
+	margin: 7px;
+}
+header h1 a
+{
+	float: left;
+	height: 100%;
+	text-indent: -9999px;
+	width: 100%;
+}
+header p {
+	font-size: 29px;
+	color: #e1e7e8;
+	width: 620px;
+	position: absolute;
+	margin-left: 190px;
+    margin-top: 143px;	
+    text-shadow: 2px 2px 3px black;
+}
+#content {
+	padding: 15px;
+}
+#content h2 {
+	font-size: 30px;
+	color: #1b2b32;
+	margin-bottom: 20px;
+}
+#content p {
+	font-size: 16px;
+	color: #1b2b32;
+	width: 440px;
+}
+#contentLeft {
+	display: block;
+	width: 470px;
+	float: left;
+}
+#contentLeft a {
+    color: #1b2b32;
+    display: block;
+    padding: 5px;
+    text-align: right;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+#contentLeft img {
+    display: block;
+    float: left;
+    width: 219px;
+    height: 164px;
+    -moz-box-shadow: 0px 3px 3px #666;
+	-webkit-box-shadow: 0px 3px 3px #666;
+	box-shadow: 0px 3px 3px #666;
+}
+#contentLeft .first {
+	margin-right: 32px;
+	margin-bottom: 30px;
+}
+#contentRight {
+	display: block;
+	width: 470px;
+	float: left;
+	margin-left: 30px;
+}
+#contentRight input {
+	display: block;
+	width: 250px;
+	margin: 20px 0px;
+	float: left;
+}
+#contentRight img {
+    display: block;
+    float: left;
+    height: 50px;
+    margin-left: 30px;
+    margin-top: 8px;
+    width: 141px;
+}
+footer {
+	clear: both;
+    height: 45px;
+	background: #37646f;
+	display: block;
+	-moz-box-shadow: 0px 3px 3px #666;
+	-webkit-box-shadow: 0px 3px 3px #666;
+	box-shadow: 0px 3px 3px #666;
+}
+footer p {
+	padding: 14px;
+	margin-left: 10px;
+	color: #e1e7e8;
+	font-size: 12px;
+}
