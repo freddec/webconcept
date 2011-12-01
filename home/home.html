@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Paint</title>
+    <style type="text/css"><!--
+      #container { position: relative; }
+      #imageView { border: 1px solid #000; }
+    --></style>
+  </head>
+  <body>
+    <div id="container">
+    <body>
+	<p><label>Drawing tool: <select id="dtool">
+	  <option value="rect">Rectangle</option>
+	  <option value="pencil">Pencil</option>
+	</select></label></p>
+	<!-- ... -->
+	</body>
+
+	<form action="form_action.asp" method="get">
+		Text: <input type="text" name="txttext" /><br />
+		<input type="submit" value="Submit" />
+	</form>
+      <canvas id="imageView" width="400" height="300">
+        <p>Unfortunately, your browser is currently unsupported by our web
+        application.  We are sorry for the inconvenience. Please use one of the
+        supported browsers listed below, or draw the image you want using an
+        offline tool.</p>
+        <p>Supported browsers: <a href="http://www.opera.com&#34;&gt;Opera&lt;/a&gt;, <a
+          href="http://www.mozilla.com&#34;&gt;Firefox&lt;/a&gt;, <a
+          href="http://www.apple.com/safari&#34;&gt;Safari&lt;/a&gt;, and <a
+          href="http://www.konqueror.org&#34;&gt;Konqueror&lt;/a&gt;.&lt;/p&gt;
+      </canvas>
+    </div>
+
+    <script type="text/javascript"
+    src="test.js"></script>
+  </body>
+</html>
