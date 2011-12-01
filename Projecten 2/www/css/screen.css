@@ -1,4 +1,4 @@
-﻿html
+html
 {
 	background: url(../images/Background.png) repeat;
 	height: 100%;
@@ -122,4 +122,84 @@ footer p {
 	margin-left: 10px;
 	color: #e1e7e8;
 	font-size: 12px;
+}
+
+nav figure {
+	float: left;
+	padding: 6px 15px;
+}
+nav {
+	margin-left: 730px;
+}
+#leftBar {
+	display: block;
+	width: 175px;
+	height: 660px;
+	background-color: #e1e7e8;
+	margin-top: 2px;
+	border: 1px solid black;
+	float: left;
+
+}
+#bottomBar {
+	width: 830px;
+	height: 210px;
+	background-color: #e1e7e8;
+	border: 1px solid black;
+	margin-left: 178px;
+}
+#tools {
+	margin-top: 3px;
+	display: block;
+	width: 175px;
+	height: 390px;
+}
+#prop {
+	display: block;
+	width: 175px;
+	height: 270px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
 }
