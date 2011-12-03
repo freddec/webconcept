@@ -177,11 +177,11 @@ window.addEventListener('load', function () {
 	
 	function convertCanvas(strType) {
 		if (strType == "PNG")
-			var oImg = Canvas2Image.saveAsPNG(canvas, true);
+			var oImg = Canvas2Image.saveAsPNG(canvas, true, canvas.width, canvas.height);
 		if (strType == "BMP")
-			var oImg = Canvas2Image.saveAsBMP(canvas, true);
+			var oImg = Canvas2Image.saveAsBMP(canvas, true, canvas.width, canvas.height);
 		if (strType == "JPEG")
-			var oImg = Canvas2Image.saveAsJPEG(canvas, true);
+			var oImg = Canvas2Image.saveAsJPEG(canvas, true, canvas.width, canvas.height);
 
 		if (!oImg) {
 			alert("Sorry, this browser is not capable of saving " + strType + " files!");
