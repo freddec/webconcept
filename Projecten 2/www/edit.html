@@ -1,129 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-    <head>
-        <meta charset="UTF-8" />
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
 
-        <title>Webconcept.be - Wireframes in een handomdraai</title>
+	<title>Webconcept.be - Wireframes in een handomdraai</title>
 
-        <meta name="description" content="" />
-        <meta name="keywords" value="" />
+	<meta name="description" content="webconcept" />
 
-        <link rel="stylesheet" href="css/screen.css" type="text/css" />
-        <link rel="stylesheet" href="css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="css/screen.css" type="text/css" />
+	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 
-        <style>
-            header {
-               /* background: #993333; */
-               background: url(images/Headeredit.png) no-repeat;
-               height: 45px;
-            }
-            header h1
-            {
-               background: url(images/Logoedit.png) no-repeat;
-               float: left;
-               height: 45px;
-               width: 487px;
-               display: block;
-               margin: 4px;
-               margin-left: 10px;
-            }
-            header h1 a
-            {
-               float: left;
-               height: 100%;
-               text-indent: -9999px;
-               width: 100%;
-            }
-        </style>
+	<style type="text/css">
+		header {
+			/* background: #993333; */
+			background: url(images/Headeredit.png) no-repeat;
+			height: 45px;
+		}
+		header h1
+		{
+			background: url(images/Logoedit.png) no-repeat;
+			float: left;
+			height: 45px;
+			width: 487px;
+			display: block;
+			margin: 4px;
+			margin-left: 10px;
+		}
+		header h1 a
+		{
+			float: left;
+			height: 100%;
+			text-indent: -9999px;
+			width: 100%;
+		}
+	</style>
 
-            <script type="text/javascript" src="test.js"></script>
-    </head>
-    <body>
+	<script type="text/javascript" src="test.js"></script>
+	<script type="text/javascript" src="Canvas2Image.js"></script>
+	<script type="text/javascript" src="base64.js"></script>
+</head>
+<body>
 
-        <div id="siteWrapper">
+	<div id="siteWrapper">
+	
+		<header>
+			<h1><a href="index.html">Webconcept</a></h1>
+			
+			<nav>
+				<figure>
+					<a  href="edit.html">
+					<img src="./images/Logo_info.png"/></a>
+				</figure>
 
-            <header>
-                <h1><a href="index.html">Webconcept</a></h1>
+				<figure>
+					<a href="edit.html">
+					<img src="./images/Logo_save.png"/></a>
+				</figure>
 
-                <nav>
-                   <figure><a  href="edit.html">
-                      <img src="./images/Logo_info.png"/></a>
-                   </figure>
-
-
-                    <figure><a href="edit.html">
-                        <img src="./images/Logo_save.png"/></a>
-                   </figure>
-
-
-                    <figure><a href="http://www.facebook.com">
-                        <img src="./images/Logo_facebook.png"/></a>
-                   </figure>
-
-
-                    <figure><a href="http://www.twitter.com">
-                        <img src="./images/Logo_twitter.png"/></a>
-                   </figure>
-               </nav>
-
-            </header>
-
-            <div class="clearfix"></div>
-            <div id="leftBar">
-               <div id="tools">
-                    <figure>
-                        <img src="./images/Tools.png"/>
-                   </figure>
-
-
-                  <p><label>Drawing tool: <select id="dtool">
-                  <option value="rect">Rectangle</option>
-                  <option value="pencil">Pencil</option>
-                  </select></label></p>
-
-
-                  <form action="form_action.asp" method="get">
-                  Text: <input type="text" name="txttext" /><br />
-                  <input type="submit" value="Submit" />
-                  </form>
-
-               </div>
-
-               <div id="prop">
-                  <figure>
-                      <img src="./images/Prop.png"/>
-                   </figure>
-               </div>
-            </div>
-
-
-
-
-
-               <canvas id="imageView" width="823" height="446">
-
-               </canvas>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div id="bottomBar">
-                  <figure>
-                      <img src="./images/Navi.png"/>
-                  </figure>
-            </div>
-
-
-        </div>
-    </body>
+				<figure>
+					<a href="http://www.facebook.com">
+					<img src="./images/Logo_facebook.png"/></a>
+				</figure>
+			
+				<figure>
+					<a href="http://www.twitter.com">
+					<img src="./images/Logo_twitter.png"/></a>
+				</figure>
+			</nav>
+		</header>
+		
+		<div id="leftBar" class="clearfix">
+			<div id="tools">
+				<figure>
+					<img src="./images/Tools.png"/>
+				</figure>
+	
+				<label for="dtool">Drawing tool: </label>
+				<select id="dtool">
+					<option value="rect">Rectangle</option>
+					<option value="pencil">Pencil</option>
+				</select>
+			
+				<form action="form_action.asp" method="get">
+					<input type="text" name="txttext" /><br />
+					<input type="submit" value="Submit" />
+				</form>
+			</div>
+		
+			<div id="prop">
+				<figure>
+					<img src="./images/Prop.png"/>
+				</figure>
+			</div>
+		</div>
+		
+		<canvas id="imageView" width="823" height="446"></canvas>
+		
+		<div id="bottomBar">
+			<figure>
+				<img src="./images/Navi.png"/>
+			</figure>
+		</div>
+	</div>
+</body>
 </html>
+
+
+<!--
+<div id="buttoncontainer" style="display:block;">
+<input type="button" id="savepngbtn" value="Save PNG">
+<input type="button" id="convertpngbtn" value="Convert to PNG">
+<br/>
+<input type="button" id="savebmpbtn" value="Save BMP">
+<input type="button" id="convertbmpbtn" value="Convert to BMP">
+<br/>
+<input type="button" id="savejpegbtn" value="Save JPEG">
+<input type="button" id="convertjpegbtn" value="Convert to JPEG">
+
+</div>
+-->

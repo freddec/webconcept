@@ -23,7 +23,7 @@ window.addEventListener('load', function () {
       alert('Error: no canvas.getContext!');
       return;
     }
-
+    			
     // Get the 2D canvas context.
     context = canvas.getContext('2d');
     if (!context) {
@@ -150,8 +150,35 @@ window.addEventListener('load', function () {
     };
   };
 
-  init();
+/*
+	var iWidth = oCanvas.width;
+	var iHeight = oCanvas.height;
+						
 
+	document.getElementById("savepngbtn").onclick = function() {
+		saveCanvas(oCanvas, "PNG");
+	}
+	document.getElementById("savebmpbtn").onclick = function() {
+		saveCanvas(oCanvas, "BMP");
+	}
+	document.getElementById("savejpegbtn").onclick = function() {
+		saveCanvas(oCanvas, "JPEG");
+	}
+
+	document.getElementById("convertpngbtn").onclick = function() {
+		convertCanvas("PNG");
+	}
+	document.getElementById("convertbmpbtn").onclick = function() {
+		convertCanvas("BMP");
+	}
+	document.getElementById("convertjpegbtn").onclick = function() {
+		convertCanvas("JPEG");
+	}	
+*/
+
+
+  init();
+  
 }, false); }
 
 // vim:set spell spl=en fo=wan1croql tw=80 ts=2 sw=2 sts=2 sta et ai cin fenc=utf-8 ff=unix:
