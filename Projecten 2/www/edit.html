@@ -82,7 +82,7 @@
 				</select>
 			
 				<form action="form_action.asp" method="get">
-					<input type="text" name="txttext" /><br />
+					<input type="text" name="txttext" id="txtText" /><br />
 					<input type="submit" value="Submit" />
 				</form>
 				
@@ -96,9 +96,11 @@
 					<br/>
 					<input type="button" id="savejpegbtn" value="Save JPEG">
 					<input type="button" id="convertjpegbtn" value="Convert to JPEG">
+					<!-- save button -->
+					<label for="saveAs">Save as:</label>
+					<input type="text" id="txtSaveAs" value="index.html">
+					<input type="button" id="savePage" value="Save As">
 				</div>
-				
-				
 			</div>
 		
 			<div id="prop">
