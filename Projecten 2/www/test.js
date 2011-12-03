@@ -73,6 +73,31 @@ window.addEventListener('load', function () {
 		document.getElementById("convertjpegbtn").onclick = function() {
 			convertCanvas("JPEG");
 		}
+		// own code
+		//save the current canvas
+		document.getElementById("btnSavePage").onclick = function() {
+			saveToLocalStorage(document.getElementById("txtSaveAs").value);
+		}
+		document.getElementById("btnClearLS").onclick = function() {
+			localStorage.clear();
+		}
+		//load thumbnails of saved pages
+		//first load array of all filenames
+		var files = new Array();
+		files = JSON.parse(localStorage['array']);
+		//document.writeln(files);
+		
+		if (files.length != 0) {
+			for (var file in files) {
+				var image = localStorage.getItem('file');
+				//document.writeln(Canvas2Image.saveAsJPEG(canvas, true) + " - ");	
+				
+				localStorageImage = new Image();
+            	localStorageImage.src = localStorage.getItem(file);
+            	//append element to div #todo
+            	//document.getElementById("testImg").appendChild(localStorageImage);
+			}
+		}
 
 	}
 	
@@ -209,6 +234,23 @@ window.addEventListener('load', function () {
 			alert("Sorry, this browser is not capable of saving " + strType + " files!");
 			return false;
 		}
+	}
+	
+	function saveToLocalStorage(path) {
+		localStorage.setItem(path, canvas.toDataURL('image/png'));
+		
+		//get array and add Item
+		if(localStorage['array'] != null) {
+			var files = JSON.parse(localStorage['array']);
+			files[files.length] = path;
+			localStorage['array'] = JSON.stringify(files);
+		} else {
+			var files = new Array();
+			files[0] = path;
+			localStorage.setItem('array', JSON.stringify(files));
+		}
+		
+		alert('your page was saved');
 	}
 	
 	init();
