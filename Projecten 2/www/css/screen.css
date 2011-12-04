@@ -195,3 +195,9 @@ nav {
 	width: 150px;
 	border: 1px solid black;
 }
+
+#navigationList {
+	width: 150px;
+	float: left;
+	height: 180px;
+}
