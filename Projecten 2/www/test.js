@@ -188,22 +188,47 @@ window.addEventListener('load', function () {
 	}
 	
 	function loadNavigation() {
+		//clear navigation
+		//loops over all childs and deletes them
+		var images = document.getElementById("testImg");
+		if ( images.hasChildNodes() )
+		{
+		    while ( images.childNodes.length >= 1 )
+		    {
+		        images.removeChild( images.firstChild );       
+		    } 
+		}
+		
+		var links = document.getElementById("navigationList");
+		if ( links.hasChildNodes() )
+		{
+		    while ( links.childNodes.length >= 1 )
+		    {
+		        links.removeChild( links.firstChild );       
+		    } 
+		}
+		
 		//load thumbnails of saved pages
 		//first load array of all filenames
 		var files = JSON.parse(localStorage.getItem('array'));
 		//alert(files.join('\n'));
 		//document.writeln("<img src='" + localStorage.getItem('test') + "' />");
 		
+		var linkList = document.getElementById('navigationList');
+		
 		if (files != null && files.length != 0) {
 			for (var file in files) {
+				//first build a list of all pages
+				var new_element = document.createElement('li');
+				new_element.innerHTML = "<a href='#'>" + files[file] + "</a>";
+				linkList.insertBefore(new_element, linkList.firstChild);
+			
+				//then show them images
 				var image = localStorage.getItem(files[file]);
 				//document.writeln(image);
-				
 				localStorageImage = document.createElement('img');
             	localStorageImage.src = image;
-            	localStorageImage.className = "thumbnail";
-            	//append element to div #todo
-            	
+            	localStorageImage.className = "thumbnail";            	
             	document.getElementById("testImg").appendChild(localStorageImage);
 			}
 		}
