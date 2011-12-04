@@ -53,26 +53,6 @@ window.addEventListener('load', function () {
 		var iWidth = canvas.width;
 		var iHeight = canvas.height;
 	
-	
-		document.getElementById("savepngbtn").onclick = function() {
-			saveCanvas(canvas, "PNG");
-		}
-		document.getElementById("savebmpbtn").onclick = function() {
-			saveCanvas(canvas, "BMP");
-		}
-		document.getElementById("savejpegbtn").onclick = function() {
-			saveCanvas(canvas, "JPEG");
-		}
-	
-		document.getElementById("convertpngbtn").onclick = function() {
-			convertCanvas("PNG");
-		}
-		document.getElementById("convertbmpbtn").onclick = function() {
-			convertCanvas("BMP");
-		}
-		document.getElementById("convertjpegbtn").onclick = function() {
-			convertCanvas("JPEG");
-		}
 		// own code
 		//save the current canvas
 		document.getElementById("btnSavePage").onclick = function() {
@@ -80,25 +60,10 @@ window.addEventListener('load', function () {
 		}
 		document.getElementById("btnClearLS").onclick = function() {
 			localStorage.clear();
+			loadNavigation();
 		}
-		//load thumbnails of saved pages
-		//first load array of all filenames
-		var files = JSON.parse(localStorage.getItem('array'));
-		//alert(files.join('\n'));
-		//document.writeln("<img src='" + localStorage.getItem('test') + "' />");
 		
-		if (files != null && files.length != 0) {
-			for (var file in files) {
-				var image = localStorage.getItem(files[file]);
-				//document.writeln(file);
-				
-				localStorageImage = document.createElement('img');
-            	localStorageImage.src = image;
-            	localStorageImage.className = "thumbnail";
-            	//append element to div #todo
-            	document.getElementById("testImg").appendChild(localStorageImage);
-			}
-		}
+		loadNavigation();
 
 	}
 	
@@ -221,19 +186,26 @@ window.addEventListener('load', function () {
 
 		showDownloadText();
 	}
-
-	function saveCanvas(pCanvas, strType) {
-		var bRes = false;
-		if (strType == "PNG")
-			bRes = Canvas2Image.saveAsPNG(canvas);
-		if (strType == "BMP")
-			bRes = Canvas2Image.saveAsBMP(canvas);
-		if (strType == "JPEG")
-			bRes = Canvas2Image.saveAsJPEG(canvas);
-
-		if (!bRes) {
-			alert("Sorry, this browser is not capable of saving " + strType + " files!");
-			return false;
+	
+	function loadNavigation() {
+		//load thumbnails of saved pages
+		//first load array of all filenames
+		var files = JSON.parse(localStorage.getItem('array'));
+		//alert(files.join('\n'));
+		//document.writeln("<img src='" + localStorage.getItem('test') + "' />");
+		
+		if (files != null && files.length != 0) {
+			for (var file in files) {
+				var image = localStorage.getItem(files[file]);
+				//document.writeln(image);
+				
+				localStorageImage = document.createElement('img');
+            	localStorageImage.src = image;
+            	localStorageImage.className = "thumbnail";
+            	//append element to div #todo
+            	
+            	document.getElementById("testImg").appendChild(localStorageImage);
+			}
 		}
 	}
 	
@@ -254,6 +226,7 @@ window.addEventListener('load', function () {
 		}
 		
 		alert('your page was saved +  ' + path);
+		loadNavigation();
 	}
 	
 	init();
