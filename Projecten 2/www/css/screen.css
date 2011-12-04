@@ -190,3 +190,8 @@ nav {
 	width: 160px;
 	border: 1px solid black;
 }
+
+.thumbnail {
+	width: 150px;
+	border: 1px solid black;
+}

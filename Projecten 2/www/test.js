@@ -83,19 +83,20 @@ window.addEventListener('load', function () {
 		}
 		//load thumbnails of saved pages
 		//first load array of all filenames
-		var files = new Array();
-		files = JSON.parse(localStorage['array']);
-		//document.writeln(files);
+		var files = JSON.parse(localStorage.getItem('array'));
+		//alert(files.join('\n'));
+		//document.writeln("<img src='" + localStorage.getItem('test') + "' />");
 		
-		if (files.length != 0) {
+		if (files != null && files.length != 0) {
 			for (var file in files) {
-				var image = localStorage.getItem('file');
-				//document.writeln(Canvas2Image.saveAsJPEG(canvas, true) + " - ");	
+				var image = localStorage.getItem(files[file]);
+				//document.writeln(file);
 				
-				localStorageImage = new Image();
-            	localStorageImage.src = localStorage.getItem(file);
+				localStorageImage = document.createElement('img');
+            	localStorageImage.src = image;
+            	localStorageImage.className = "thumbnail";
             	//append element to div #todo
-            	//document.getElementById("testImg").appendChild(localStorageImage);
+            	document.getElementById("testImg").appendChild(localStorageImage);
 			}
 		}
 
@@ -237,20 +238,22 @@ window.addEventListener('load', function () {
 	}
 	
 	function saveToLocalStorage(path) {
-		localStorage.setItem(path, canvas.toDataURL('image/png'));
+		localStorage.setItem(path, canvas.toDataURL("image/png"));
+		//localStorage.setItem('test', canvas.toDataURL("image/png"));
 		
 		//get array and add Item
-		if(localStorage['array'] != null) {
-			var files = JSON.parse(localStorage['array']);
+		if(localStorage.getItem('array') != null) {
+			var files = [];
+			files = JSON.parse(localStorage['array']);
 			files[files.length] = path;
-			localStorage['array'] = JSON.stringify(files);
+			localStorage.setItem('array', JSON.stringify(files));
 		} else {
-			var files = new Array();
+			var files = [];
 			files[0] = path;
 			localStorage.setItem('array', JSON.stringify(files));
 		}
 		
-		alert('your page was saved');
+		alert('your page was saved +  ' + path);
 	}
 	
 	init();
