@@ -8,11 +8,11 @@
    <meta name="description" content="webconcept" />
    <link rel="stylesheet" href="css/screen.css" type="text/css" />
    <link rel="stylesheet" href="css/reset.css" type="text/css" />
-
+   <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" />
    <style type="text/css">
       header {
          /* background: #993333; */
-         background: url(images/Headeredit.png) no-repeat;
+         background: url(images/Headeredit.png) repeat-x;
          height: 45px;
          margin-bottom: 5px;
       }
@@ -21,7 +21,7 @@
          background: url(images/Logoedit.png) no-repeat;
          float: left;
          height: 36px;
-         width: 487px;
+         width: 300px;
          display: block;
          margin-top: 4px;
          margin-left: 10px;
@@ -31,7 +31,6 @@
          float: left;
          height: 45px;
          text-indent: -9999px;
-         width: 100%;
       }
       .colors img
       {
@@ -40,12 +39,167 @@
       }
    </style>
 
-   <!--<script type="text/javascript" src="test.js"></script> -->
-   <script type="text/javascript" src="Canvas2Image.js"></script>
-   <script type="text/javascript" src="base64.js"></script>
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-       <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
-   <script type="text/javascript" src="html5-canvas-drawing-app.js"></script>
+   	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
+	<style type="text/css">
+		#resizable { width: 150px; height: 150px; padding: 0.5em; }
+		#resizable h3 { text-align: center; margin: 0; }
+		.ui-resizable-helper { border: 1px dotted gray; }
+	</style>
+	<script type="text/javascript">
+		var counter = 0;
+		var blockCounter = 0;
+		var textfieldCounter = 0;
+		var buttonCounter = 0;
+	
+		
+		//function gets executed on startup
+		$(function(){
+			$('#dropZone').hide();
+		});
+		
+		
+		//show & hide div's and other elements
+		//http://www.plus2net.com/javascript_tutorial/hide-layer.php
+		function setVisibility(id, visibility) {
+			document.getElementById(id).style.display = visibility;
+		}
+		
+		function changeButton(id, visibility, buttonid, input) {
+			document.getElementById(buttonid).innerHTML = document.getElementById(input).value;
+			document.getElementById(id).style.display = visibility;
+		}
+		
+		//function to drop own user images in the page
+		//https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/entry/html5_code_example_of_file_api_drag_drop_hard_drive_files_to_a_webpage28?lang=en
+		function imagesSelected(myFiles) {
+		  for (var i = 0, f; f = myFiles[i]; i++) {
+		    var imageReader = new FileReader();
+		    imageReader.onload = (function(aFile) {
+		      return function(e) {
+		        var span = document.createElement('span');
+		        span.innerHTML = ['<img class="userImages" id="userImage', counter ,'" src="', e.target.result,'" title="', aFile.name, '"/>'].join('');
+		        span.setAttribute('id', 'userImageSpan'+counter);
+		        document.getElementById('ownTools').insertBefore(span, null);
+		        $('#userImage'+counter).resizable({ animate: true });
+		        $('#userImageSpan'+counter).draggable({ grid: [30,30] });
+		        counter++;
+		      };
+		    })(f);
+		    imageReader.readAsDataURL(f);
+		  }
+		}
+		
+		function dropIt(e) {  
+		   imagesSelected(e.dataTransfer.files); 
+		   e.stopPropagation();  
+		   e.preventDefault();   
+		}  
+		
+		//function to add the tools to the workspace
+		function addItem(item) {
+			var workspace = document.getElementById('workspace');
+			
+			//add the default block element
+			if (item == 'block') {
+				var block = document.createElement('div');
+				block.setAttribute('class', 'ui-widget-content');
+				block.setAttribute('id', 'resizeDiv'+blockCounter); 
+				workspace.insertBefore(block, null);
+				$('#resizeDiv'+blockCounter)
+				.draggable({ grid: [30,30] })
+				.resizable({ animate: true });
+				blockCounter++;	
+			} 
+			
+			//add the textfield
+			else if (item == 'textField') {
+				var textfield = document.createElement('div');
+				var handle = document.createElement('p');
+				var textarea = document.createElement('textarea');
+							
+				textfield.setAttribute('class', 'textField clearfix');
+				textfield.setAttribute('id', 'textField'+textfieldCounter);
+				handle.setAttribute('class', 'handle');
+				handle.innerHTML = '&nbsp;';
+				textarea.setAttribute('placeholder', 'text');
+				textarea.setAttribute('id', 'textArea'+textfieldCounter);
+				
+				workspace.insertBefore(textfield, null);
+				document.getElementById('textField'+textfieldCounter).insertBefore(handle, null);
+				document.getElementById('textField'+textfieldCounter).insertBefore(textarea, null);
+				
+				$('.textField').draggable({ handle: "p", cancel: "textarea", grid: [30,30] });
+				$('#textArea'+textfieldCounter).resizable({ animate: true });
+				textfieldCounter++;
+			}
+					
+			//add a button
+			else if (item == 'button') {
+				var button = document.createElement('div');
+				var handle = document.createElement('p');
+				var editTool = document.createElement('p');
+				var btnButton = document.createElement('button');
+				var popupButton = document.createElement('div');
+				var input = document.createElement('input');
+				var btnPopupButton = document.createElement('button');
+				
+				button.setAttribute('class', 'inputButton');
+				button.setAttribute('id', 'inputButton'+buttonCounter);
+				handle.setAttribute('class', 'handle');
+				handle.innerHTML = '&nbsp;';
+				editTool.setAttribute('class', 'editTool');
+				editTool.setAttribute("onclick", "setVisibility('popupButton"+buttonCounter+"', 'block');");
+				editTool.innerHTML = '&nbsp;';
+				btnButton.setAttribute('type', 'button');
+				btnButton.setAttribute('id', 'button'+buttonCounter);
+				btnButton.innerHTML = 'button';
+				popupButton.setAttribute('style', 'display: none');
+				popupButton.setAttribute('id', 'popupButton'+buttonCounter);
+				popupButton.setAttribute('class', 'popupButton');
+				input.setAttribute('class', 'changetext');
+				input.setAttribute('id', 'text'+buttonCounter);
+				input.setAttribute('placeholder', 'submit');
+				btnPopupButton.setAttribute('class', 'change');
+				btnPopupButton.setAttribute('type', 'button');
+				btnPopupButton.setAttribute("onclick", "changeButton('popupButton"+buttonCounter+"', 'none', 'button"+buttonCounter+"', 'text"+buttonCounter+"' );"); 
+				btnPopupButton.innerHTML = 'ok';
+				
+				workspace.insertBefore(button, null);
+				document.getElementById('inputButton'+buttonCounter).insertBefore(handle, null);
+				document.getElementById('inputButton'+buttonCounter).insertBefore(editTool, null);
+				document.getElementById('inputButton'+buttonCounter).insertBefore(btnButton, null);
+				document.getElementById('inputButton'+buttonCounter).insertBefore(popupButton, null);
+				document.getElementById('popupButton'+buttonCounter).insertBefore(input, null);
+				document.getElementById('popupButton'+buttonCounter).insertBefore(btnPopupButton, null);
+				
+				$('.inputButton').draggable({ handle: "p", cancel: "button", grid: [30,30] });
+				$('#button'+buttonCounter).resizable ({ animate: true });
+				
+				buttonCounter++;
+			}
+			
+			/*
+				<div class="inputButton">
+					<p class="handle">&#160;</p>	
+					<p class="editTool" onclick="setVisibility('popupButton', 'block');">&#160;</p>
+					<button type="button" id="button">Button</button>
+					  <div id="popupButton"  style="display: none">
+					  	    <input class="changetext" id="text1" placeholder="submit" />
+			           		<button class="change" type="button" onclick="changeButton('popupButton', 'none', 'button1', 'text1' );">Ok</button>
+			          </div>
+			
+				</div>	
+			*/
+			
+		}
+	</script>
+	
 </head>
 <body>
 
@@ -55,109 +209,77 @@
          <h1><a href="index.html">Webconcept</a></h1>
 
          <nav>
-            <figure>
-               <a  href="edit.html">
-               <img src="./images/Logo_info.png"/></a>
-            </figure>
+         	<button class="headerBtn" id="infoBtn" type="button" onclick="setVisibility('popupInfo', 'block');"></button>
+            <div id="popupInfo">
+            	<button id="popupInfoBtn" type="button" onclick="setVisibility('popupInfo', 'none');">Ok</button>
+            </div>
 
-            <figure>
-               <a href="edit.html">
-               <img src="./images/Logo_save.png"/></a>
-            </figure>
-
-            <figure>
-               <a href="http://www.facebook.com">
-               <img src="./images/Logo_facebook.png"/></a>
-            </figure>
-
-            <figure>
-               <a href="http://www.twitter.com">
-               <img src="./images/Logo_twitter.png"/></a>
-            </figure>
+			<button class="headerBtn" id="saveBtn" type="button" onclick=""></button>
+			
+			<button class="headerBtn" id="facebookBtn" type="button" onclick=""></button>
+			
+			<button class="headerBtn" id="twitterBtn" type="button" onclick=""></button>
          </nav>
       </header>
+		
+		<!--
+			mind the buildup here - the center (workspace) element is placed first, this is a nifty css trick
+			so it takes all the screen real estate
+			http://www.alistapart.com/articles/holygrail
+		-->
+		<div id="workspaceWrapper">	
+			<div id="workspace"></div>
+			
+			<div id="leftBar">
+			 <div id="tools">
+			    <h2>Tools</h2>
+			    <ul>
+			    	<li><button class="btnTools" id="blockTool" onclick="addItem('block');">block</button></li>
+			    	<li><button class="btnTools" id="textfieldTool" onclick="addItem('textField');">textfield</button></li>
+			    	<li><button class="btnTools" id="buttonTool" onclick="addItem('button');">button</button></li>
+			    </ul>
+			    
+			    <!-- //Tools
+				<div id="resizeDiv" class="ui-widget-content"></div>	
+			   	
+			   	<div class="textField clearfix">	
+			   		<p class="handle">&#160;</p>
+			   		<textarea placeholder="text" id="textArea"></textarea>
+			   	</div>
+			   	
+				<div class="inputButton">
+					<p class="handle">&#160;</p>	
+					<p class="editTool" onclick="setVisibility('popupButton', 'block');">&#160;</p>
+					<button type="button" id="button1">Button</button>
+					  <div id="popupButton"  style="display: none">
+					  	    <input class="changetext" id="text1" placeholder="submit" />
+			           		<button class="change" type="button" onclick="changeButton('popupButton', 'none', 'button1', 'text1' );">Ok</button>
+			          </div>
+			
+				</div>	
+				-->
+				
+				<!-- here come the tools the user drop in the box -->
+				<div id="ownTools"></div>
+							
+				<!-- //Label
+				<div class="inputButton">
+					<p class="handle">&#160;</p>	
+					<label id="lbltest">Test</label>
+					<div onclick="setVisibility('popupButton', 'block');" id="popupLabel"  style="display: none">
+				  	    <input class="changetext" id="text2" visible="false"> </input>
+			       		<button class="change" visible="false" type="button" onclick="changeButton('popupLabel', 'none', 'lbltest', 'text2' );">Ok</button>
+			        </div>
+				</div>
+				-->
+				</div>
+			</div>
+				
+			<div id="rightBar" class="clearfix"></div>
+		</div>	
+	</div>      
 
-      <div id="leftBar" class="clearfix">
-         <div id="tools">
-            <figure>
-               <img src="./images/Tools.png"/>
-            </figure>
-                                
-            <div id="buttoncontainer" style="display:block;">
-               <!-- save button -->
-               <label for="Size">Size:</label><br />
-               <input type="button" onclick="displaySmall()" value="Small"></input>
-               <input type="button" onclick="displayNormal()" value="Normal"></input>
-               <input type="button" onclick="displayLarge()" value="Large"></input>
-               <input type="button" onclick="displayHuge()" value="Huge"></input>
-            </div>
-
-            <div id="buttoncontainer" style="display:block;">
-               <!-- save button -->
-               <label for="Size">Style:</label><br />
-               <input type="button" onclick="displayMarker()" value="Marker"></input>
-               <input type="button" onclick="displayRectangle()" value="Rectangle"></input>
-               <input type="button" onclick="displayErase()" value="Erase"></input>
-            </div>
-
-            <div id="buttoncontainer" class="colors" style="display:block;">
-               <!-- save button -->
-               <label for="Color">Color:</label><br />
-               <figure>
-               <a onclick="displayBlack()">
-               <img src="./images/color-swatch-black.png"/></a>
-               </figure>
-               <figure>
-               <a onclick="displayGreen()">
-               <img src="./images/color-swatch-green.png"/></a>
-               </figure>
-               <figure>
-               <a onclick="displayPurple()">
-               <img src="./images/color-swatch-purple.png"/></a>
-               </figure>
-               <figure>
-               <a onclick="displayYellow()">
-               <img src="./images/color-swatch-yellow.png"/></a>
-               </figure>
-               <figure>
-               <a onclick="displayBrown()">
-               <img src="./images/color-swatch-brown.png"/></a>
-               </figure>
-            </div>
-
-            <div id="buttoncontainer" style="clear:both;">
-               <!-- save button -->
-               <label for="Size">Clear</label><br />
-               <input type="button" onClick="window.location.reload()" value="Clear"></input>
-            </div>
-
-            <!-- testbuttons -->
-            <div id="buttoncontainer" style="display:block;">
-               <!-- save button -->
-               <label for="Text">Add text:</label>
-               <input type="text" id="txtText" placeholder="enter your text">
-               <input type="button" id="btnText" value="Submit">
-            </div>
-
-
-            <!-- testbuttons -->
-            <div id="buttoncontainer" style="display:block;">
-               <!-- save button -->
-               <label for="saveAs">Save as:</label>
-               <input type="text" id="txtSaveAs" placeholder="index">
-               <input type="button" id="btnSavePage" value="Save as">
-               <input type="button" id="btnClearLS" value="Clear storage">
-            </div>
-         </div>
-
-
-      </div>
-
-    <div id="imageView"></div>
-    <script type="text/javascript"> $(document).ready(function() {
-       prepareCanvas();
-});</script>
-
+<!--
    <div id="bottomBar">
       <figure>
       <img src="./images/Navi.png"/>
@@ -167,6 +289,22 @@
       <div id="testImg">
       </div>
    </div>
+-->
+	
+	
+	<!-- this is the dropzone for the user it's own tools -->
+	<div id="dropZone" ondragenter="return false" ondragover="return false" ondrop="dropIt(event)">
+		<button type="button" class="btnMinimise" onclick="$('#dropZone').hide(200); $('#dropZoneMinimised').show(200);">&nbsp;</button>
+	</div>
+	
+	<div id="dropZoneMinimised" onclick="$('#dropZoneMinimised').hide(200); $('#dropZone').show(200);"></div>
+			
+
+	<!-- these buttons float on the bottom of the window, to show/hide handlers and so on -->
+	<div id="btnBottom">
+		<button id="hideHandlerBtn" type="button" onclick="$('.handle').hide(); $('.editTool').hide();">hide handlers</button>
+		<button id="showHandlerBtn" type="button" onclick="$('.handle').show(); $('.editTool').show();">show handlers</button>
+	</div>
 </body>
 </html>
 
