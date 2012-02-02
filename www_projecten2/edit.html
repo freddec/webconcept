@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8" />
+
+   <title>Webconcept.be - Wireframes in een handomdraai</title>
+
+   <meta name="description" content="webconcept" />
+   <link rel="stylesheet" href="css/screen.css" type="text/css" />
+   <link rel="stylesheet" href="css/reset.css" type="text/css" />
+   <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.16.custom.css" type="text/css" />
+   <style type="text/css">
+      header {
+         background: url(images/Headeredit.png) repeat-x;
+         height: 45px;
+         margin-bottom: 5px;
+      }
+      header h1
+      {
+         background: url(images/Logoedit.png) no-repeat;
+         float: left;
+         height: 36px;
+         width: 300px;
+         display: block;
+         margin-top: 4px;
+         margin-left: 10px;
+      }
+      header h1 a
+      {
+         float: left;
+         height: 45px;
+         text-indent: -9999px;
+      }
+      .colors img
+      {
+         float: left;
+         padding: 5px;
+      }
+   </style>
+
+   	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.resizable.js"></script>
+	<script type="text/javascript" src="js/ui/jquery.ui.draggable.js"></script>
+	<script type="text/javascript" src="js/color/jscolor.js"></script>
+	<style type="text/css">
+		#resizable { width: 150px; height: 150px; padding: 0.5em; }
+		#resizable h3 { text-align: center; margin: 0; }
+		.ui-resizable-helper { border: 1px dotted gray; }
+	</style>
+	<script type="text/javascript" src="js/script.js">
+		
+	</script>
+	
+</head>
+<body>
+
+   <div id="siteWrapper">
+
+      <header>
+         <h1><a href="index.html">Webconcept</a></h1>
+
+         <nav>
+         	<button class="headerBtn" id="" type="button" onclick="debugDelete();">debugdelete</button>
+         	<button class="headerBtn" id="infoBtn" type="button" onclick="setVisibility('popupInfo', 'block');"></button>
+            <div id="popupInfo">
+            	<button id="popupInfoBtn" type="button" onclick="setVisibility('popupInfo', 'none');">Ok</button>
+            </div>
+            
+            <div id="popupSave">
+            	<input type="text" class="changetext" id="inputFileName" placeholder="filename"/>
+            	<button id="popupSaveBtnSave" type="button" onclick="setVisibility('popupSave', 'none'); writeDimensions();">Save</button>
+				<button id="popupSaveBtnLoad" type="button" onclick="setVisibility('popupSave', 'none'); getFile();">Load</button>
+            </div>
+						
+			<button class="headerBtn" id="saveBtn" type="button" onclick="setVisibility('popupSave', 'block');"></button>
+			<a class="headerBtn" id="facebookBtn" href="http://www.facebook.com/sharer.php?u=http://webconcept.ikdoeict.be&t=Hey, I use weboncept to create my website wireframes online" target="_blank">Facebookshare</a>
+			<a class="headerBtn" id="twitterBtn" href="http://twitter.com/home?status=Hey, I use webconcept to create my website wireframes online - http://www.webconcept.be" target="_blank">twittershare</a>
+         </nav>
+      </header>
+		
+		<!--
+			mind the buildup here - the center (workspace) element is placed first, this is a nifty css trick
+			so it takes all the screen real estate
+			http://www.alistapart.com/articles/holygrail
+		-->
+		<div id="workspaceWrapper">	
+			<div id="workspace">
+				<!-- div for the colorpicker -->
+				<div id="colordiv">			
+					Select color: <input id="colorselect" class="color" value="000000">
+				</div>
+			</div>
+			
+			<div id="leftBar">
+				<div id="tools">
+				    <h2>Tools</h2>
+				    <ul>
+				    	<li><button class="btnTools" id="standardMenu" onclick="changemenu('blockTool', 'textfieldTool', 'buttonTool', 'standardMenu', 'labelH1', 'labelH2', 'labelH3', 'labelH4', 'labelH5'  );">block</button></li>				   		
+				    	<li><button class="btnToolsHeaders" id="labelH1" onclick="addLabel('h1', null);">label</button></li>
+				    	
+				    	<li><button class="btnToolsHeaders" id="labelH2" onclick="addLabel('h2', null);">label</button></li>
+				    	<li><button class="btnToolsHeaders" id="labelH3" onclick="addLabel('h3', null);">label</button></li>
+				    	<li><button class="btnToolsHeaders" id="labelH4" onclick="addLabel('h4', null);">label</button></li>
+				    	<li><button class="btnToolsHeadersLast" id="labelH5" onclick="addLabel('h5', null);">label</button></li>
+				    
+				    	<li><button class="btnTools" id="blockTool" onclick="addItem('block');">block</button></li>
+				    	<li><button class="btnTools" id="textfieldTool" onclick="addItem('textField');">textfield</button></li>
+				    	<li><button class="btnTools" id="buttonTool" onclick="addItem('button');">button</button></li>
+				    	<li><button class="btnTools" id="mediaMenu" onclick="changemenu('imageTool', 'videoTool', 'chartTool', 'mediaMenu', 'gmapTool','dropdownTool','checkboxTool','radiobuttonTool','');">block</button></li>
+				    	<li><button class="btnTools" id="imageTool" onclick="addItem('image');">image</button></li>
+	                    <li><button class="btnTools" id="videoTool" onclick="addItem('video');">video</button></li>
+	                    <li><button class="btnTools" id="chartTool" onclick="addItem('chart');">chart</button></li>
+	                    <li><button class="btnTools" id="gmapTool" onclick="addItem('gmap');">gmap</button></li>
+                        <li><button class="btnTools" id="dropdownTool" onclick="addItem('dropdown');">dropdown</button></li>
+                        <li><button class="btnTools" id="checkboxTool" onclick="addItem('checkbox');">checkbox</button></li>
+                        <li><button class="btnTools" id="radiobuttonTool" onclick="addItem('radiobutton');">radiobutton</button></li>
+				    </ul>
+				    				
+					<!-- here come the tools the user drop in the box -->
+					<div id="ownTools">
+						<button class="btnTools" id="customTools" onclick="changemenu('custom', '', '', '','','','','','');">block</button>
+					</div>
+				</div>
+			</div>
+				
+			<div id="rightBar" class="clearfix"></div>
+		</div>	
+	</div>      
+	
+	<!-- this is the dropzone for the user it's own tools -->
+	<div id="dropZone" ondragenter="return false" ondragover="return false" ondrop="dropIt(event)">
+		<button type="button" class="btnMinimise" onclick="$('#dropZone').hide(200); $('#dropZoneMinimised').show(200);">&nbsp;</button>
+	</div>
+	
+	<div id="dropZoneMinimised" onclick="$('#dropZoneMinimised').hide(200); $('#dropZone').show(200);"></div>
+			
+
+	<!-- these buttons float on the bottom of the window, to show/hide handlers and so on -->
+	<div id="btnBottom">
+		<button id="hideHandlerBtn" type="button" onclick="$('.handle').hide(); $('.editTool').hide(); $('.deleteHandleSpecial').hide(); $('.deleteHandle').hide(); $('.ui-icon-gripsmall-diagonal-se').hide();">hide handlers</button>
+		<button id="showHandlerBtn" type="button" onclick="$('.handle').show(); $('.editTool').show(); $('.deleteHandleSpecial').show(); $('.deleteHandle').show(); $('.ui-icon-gripsmall-diagonal-se').show();">show handlers</button>
+	</div>
+</body>
+</html>
+
